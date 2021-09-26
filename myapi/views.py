@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from myapi.models import Category, Branch, Contact, Course
 from myapi.serializers import CategorySerializer, BranchSerializer, ContactSerializer, CourseSerializer
 from django.http import Http404
@@ -85,11 +85,11 @@ class CourseDetail(APIView):
     serializer_class = CourseSerializer
 
     def get(self, request, pk, format=None):
-        course = Course.objects.get(pk=pk)
+        course = get_object_or_404(Course, id=pk)
         serializer = CourseSerializer(course)
         return Response(serializer.data)     
 
     def delete(self, request, pk):
-        course = Course.objects.get(pk=pk)
+        course = get_object_or_404(Course, id=pk)
         course.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
