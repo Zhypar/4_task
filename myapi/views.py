@@ -65,21 +65,10 @@ class CourseList(APIView):
 
     serializer_class = CourseSerializer
 
-    def get_queryset(self):
-        courses = Course.objects.all()
-        return courses
-
-    def get(self, request, *args, **kwargs):
-        try:
-            id = request.query_params["id"]
-            if id != None:
-                course = Course.objects.get(id=id)
-                serializer = CourseSerializer(course)
-        except:
-            courses = self.get_queryset()
-            serializer = CourseSerializer(courses, many = True)
-
-        return Response(serializer.data)
+    def get(self, request, format=None):
+        Courses = Course.objects.all()
+        serializer = CourseSerializer(Courses, many=True)
+        return Response(serializer.data)  
 
     def post(self, request):
         serializer = CourseSerializer(data=request.data)
@@ -91,13 +80,16 @@ class CourseList(APIView):
             return  Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, *args, **kwargs):
-        try:
-            id = request.query_params["id"]
-            if id != None:
-                course = Course.objects.get(id=id)
-                course.delete()
-        except Course.DoesNotExist:
-            return Response({'message': 'The course does not exist'}, status=status.HTTP_404_NOT_FOUND)
+class CourseDetail(APIView):
 
-        return Response({'message': 'Course has been deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+    serializer_class = CourseSerializer
+
+    def get(self, request, pk, format=None):
+        course = Course.objects.get(pk=pk)
+        serializer = CourseSerializer(course)
+        return Response(serializer.data)     
+
+    def delete(self, request, pk):
+        course = Course.objects.get(pk=pk)
+        course.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

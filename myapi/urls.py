@@ -1,7 +1,8 @@
 
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 
-from .views import CategoryList, BranchList, ContactList, CourseList
+from .views import CategoryList, BranchList, ContactList, CourseList, CourseDetail
 
 
 app_name = "myapi"
@@ -11,4 +12,7 @@ urlpatterns = [
     path('branches/', BranchList.as_view()),
     path('contacts/', ContactList.as_view()),
     path('courses/', CourseList.as_view()),
+    path('courses/<int:pk>/', CourseDetail.as_view(),)
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
