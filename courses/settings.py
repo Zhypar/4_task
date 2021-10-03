@@ -43,16 +43,6 @@ INSTALLED_APPS = [
     'myapi',
 ]
 
-# SWAGGER_SETTINGS={
-#     'SECURITY_DEFINITIONS':{
-#         "Auth Token eg [Bearer] (JWT)]":{
-#             "type": 'apiKey',
-#             "name": "Autorization",
-#             "in": "header"
-#         }
-#     }
-# }
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
