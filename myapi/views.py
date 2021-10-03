@@ -1,12 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render,get_object_or_404
 from myapi.models import Category, Branch, Contact, Course
 from myapi.serializers import CategorySerializer, BranchSerializer, ContactSerializer, CourseSerializer
 from django.http import Http404
 from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
-class CategoryList(APIView):
+class CategoryList(GenericAPIView):
     serializer_class = CategorySerializer
 
     def get(self, request, format=None):
@@ -21,7 +22,7 @@ class CategoryList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class BranchList(APIView):
+class BranchList(GenericAPIView):
     serializer_class = BranchSerializer
 
     def get(self, request, format=None):
@@ -39,7 +40,7 @@ class BranchList(APIView):
             return  Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ContactList(APIView):
+class ContactList(GenericAPIView):
 
     serializer_class = ContactSerializer
     def get(self, request, format=None):
@@ -61,7 +62,7 @@ class ContactList(APIView):
 
     
 
-class CourseList(APIView):
+class CourseList(GenericAPIView):
 
     serializer_class = CourseSerializer
 
@@ -80,7 +81,7 @@ class CourseList(APIView):
             return  Response(
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CourseDetail(APIView):
+class CourseDetail(GenericAPIView):
 
     serializer_class = CourseSerializer
 
@@ -90,6 +91,6 @@ class CourseDetail(APIView):
         return Response(serializer.data)     
 
     def delete(self, request, pk):
-        course = get_object_or_404(Course, id=pk)
+        course = Course.objects.get(pk=pk)
         course.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
