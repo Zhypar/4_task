@@ -9,6 +9,7 @@ from rest_framework import status
 
 class CategoryList(GenericAPIView):
     serializer_class = CategorySerializer
+    queryset = Category.objects.all()
 
     def get(self, request, format=None):
         Categories = Category.objects.all()
@@ -24,6 +25,7 @@ class CategoryList(GenericAPIView):
 
 class BranchList(GenericAPIView):
     serializer_class = BranchSerializer
+    queryset = Branch.objects.all()
 
     def get(self, request, format=None):
         Branches = Branch.objects.all()
@@ -41,6 +43,7 @@ class BranchList(GenericAPIView):
                 serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ContactList(GenericAPIView):
+    queryset = Contact.objects.all()
 
     serializer_class = ContactSerializer
     def get(self, request, format=None):
@@ -65,6 +68,7 @@ class ContactList(GenericAPIView):
 class CourseList(GenericAPIView):
 
     serializer_class = CourseSerializer
+    queryset = Course.objects.all()
 
     def get(self, request, format=None):
         Courses = Course.objects.all()
@@ -84,6 +88,7 @@ class CourseList(GenericAPIView):
 class CourseDetail(GenericAPIView):
 
     serializer_class = CourseSerializer
+    queryset = Course.objects.all()
 
     def get(self, request, pk, format=None):
         course = get_object_or_404(Course, id=pk)
