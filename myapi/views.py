@@ -35,6 +35,7 @@ class BranchList(GenericAPIView):
     def post(self, request):
         serializer = BranchSerializer(data=request.data)
         if serializer.is_valid():
+            serializer.save()
             address = serializer.data.get('address')
             success = "Branch '{0}' has been added successfully".format(address)
             return Response({'success': success})
@@ -55,6 +56,7 @@ class ContactList(GenericAPIView):
     def post(self, request):
         serializer = ContactSerializer(data=request.data)
         if serializer.is_valid():
+            serializer.save()
             type = serializer.data.get('type')
             success = "Contact '{0}' has been added successfully".format(type)
             return Response({'success': success})

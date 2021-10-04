@@ -6,11 +6,6 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['name', 'imgpath']
-
-        def create(self, validated_data, *args, **kwargs):
-            category = Category.objects.create(**validated_data)
-            category.save()
-            return category
     
         def __str__(self):
             return self.name
@@ -21,21 +16,11 @@ class BranchSerializer(serializers.ModelSerializer):
         model = Branch
         fields = ['latitude', 'longitude', 'address']
 
-    def create(self, validated_data, *args, **kwargs):
-        branch = Contact.objects.create(*validated_data)
-        branch.save()
-        return Branch.objects.create(**validated_data)
-
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
         fields = ['type', 'value']
-
-    def create(self, validated_data, *args, **kwargs):
-        contact = Contact.objects.create(*validated_data)
-        contact.save()
-        return contact
-
+        
 class NestedBranchSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
 

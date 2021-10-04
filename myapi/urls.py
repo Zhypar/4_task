@@ -14,5 +14,3 @@ urlpatterns = [
     path('courses/', CourseList.as_view()),
     path('courses/<int:pk>/', CourseDetail.as_view(),)
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
