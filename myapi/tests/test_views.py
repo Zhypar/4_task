@@ -77,15 +77,12 @@ class TestsAPIListDetailView(TestCase):
     url_courses = '/api/courses/?'
 
     def setUp(self):
-        self.factory = APIRequestFactory()
-
-    def test_delete_a_course(self):
-
+        self.factory = APIRequestFactory()        
         test_category = Category.objects.create(name='Sport', imgpath = "jpg")
         test_branch = Branch.objects.create(latitude = 12, longitude = 12, address = "Mira")
         test_contact = Contact.objects.create(type = "1", value = "9876543")
 
-        test_course = Course.objects.create(
+        self.test_course = Course.objects.create(
             name='Swimming',
             description='text',
             logo='jpg',
@@ -93,14 +90,18 @@ class TestsAPIListDetailView(TestCase):
         )
 
         contact_objects_for_course = Contact.objects.all()
-        test_course.contacts.set(contact_objects_for_course)
-        test_course.save()
+        self.test_course.contacts.set(contact_objects_for_course)
+        self.test_course.save()
 
         branch_objects_for_course = Branch.objects.all()
-        test_course.branches.set(branch_objects_for_course)
-        test_course.save()    
+        self.test_course.branches.set(branch_objects_for_course)
+        self.test_course.save() 
 
-        req = self.factory.delete("{}{}/?q=bar".format(self.url_courses, test_course.pk))
-        resp = CourseDetail.as_view()(req, pk=test_course.pk)
+    def test_delete_a_course(self):
+
+   
+
+        req = self.factory.delete("{}{}/?q=bar".format(self.url_courses, self.test_course.pk))
+        resp = CourseDetail.as_view()(req, pk=self.test_course.pk)
 
         self.assertEqual(204, resp.status_code)
