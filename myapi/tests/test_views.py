@@ -13,6 +13,8 @@ class TestCourse(APITestCase):
     url_contacts = '/api/contacts/?'
     url_branches = '/api/branches/?'
     url_categories = '/api/categories/?'
+    url_courses_detail2 = '/api/courses/?id=2/'
+
 
     def setUp(self):
 
@@ -43,13 +45,6 @@ class TestCourse(APITestCase):
         self.assertIsInstance(result, list)
         self.assertEqual(result[0]['name'], "Swimming")
 
-    def test_get_a_course(self):
-        response = self.client.get(self.url_courses_detail)
-        result = response.json()
-        self.assertEqual(response.status_code, 200)
-        self.assertIsInstance(result, list)
-        self.assertEqual(result[0]['name'], "Swimming")
-
     def test_post_a_course(self):
 
         data = {
@@ -69,6 +64,25 @@ class TestCourse(APITestCase):
         response = self.client.post(self.url_courses, data=data, format='json')
         result = response.json()
         self.assertEqual(response.status_code, 200)
+
+    def test_post_incorrect_data(self):
+
+        data = {
+            "id": 8,
+            "name": "Piano",
+            "description": "text",
+            "category": 1,
+            "logo": "image",
+            "contacts": [{
+                "type": "1",
+                "value": "89898989"}],
+            "branches": [{
+                "latitude": 1,
+                "longitude": 2,
+                "address": "Mira"}]
+        }
+        error_response = self.client.post(self.url_courses, data!=data, format='json')
+        self.assertEqual(error_response.status_code, 400)
 
 
 
@@ -99,9 +113,18 @@ class TestsAPIListDetailView(TestCase):
 
     def test_delete_a_course(self):
 
-   
-
         req = self.factory.delete("{}{}/?q=bar".format(self.url_courses, self.test_course.pk))
         resp = CourseDetail.as_view()(req, pk=self.test_course.pk)
 
         self.assertEqual(204, resp.status_code)
+
+    def test_get_a_course(self):
+        response = self.factory.get("{}{}/?q=bar".format(self.url_courses, self.test_course.pk))
+        resp = CourseDetail.as_view()(response, pk=self.test_course.pk)
+        self.assertEqual(resp.status_code, 200)
+
+    def test_not_found_course(self):
+        self.test_course.pk = 2
+        response = self.factory.get("{}{}/?q=bar".format(self.url_courses, self.test_course.pk))
+        resp = CourseDetail.as_view()(response, pk=self.test_course.pk)
+        self.assertEqual(resp.status_code, 404)      
