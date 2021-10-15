@@ -69,19 +69,17 @@ class TestCourse(APITestCase):
 
         data = {
             "id": 8,
-            "name": "Piano",
             "description": "text",
             "category": 1,
             "logo": "image",
             "contacts": [{
-                "type": "1",
-                "value": "89898989"}],
+                "type": "1"}],
             "branches": [{
                 "latitude": 1,
                 "longitude": 2,
                 "address": "Mira"}]
         }
-        error_response = self.client.post(self.url_courses, data!=data, format='json')
+        error_response = self.client.post(self.url_courses, data=data, format='json')
         self.assertEqual(error_response.status_code, 400)
 
 
