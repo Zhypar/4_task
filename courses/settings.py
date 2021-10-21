@@ -80,27 +80,11 @@ WSGI_APPLICATION = 'courses.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 # DATABASES = {'default': dj_database_url.config()}
-# DATABASES = {
-#      'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',}}
-
-
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
-# DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'), conn_max_age=600)
-
 DATABASES = {
-   'default': {
-      'ENGINE': 'django.db.backends.postgresql',
-    #   'NAME': config('DB_NAME'),
-    #   'USER': config('DB_USER'),
-    #   'PASSWORD': config('DB_PASSWORD'),
-    #   'HOST': 'localhost',
-    #   'PORT': '5432',
-   }
-}
-#db.from_env = dj_database_url.config()
-# DATABASES['default'].update(db.from_env)
+     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',}}
+
+
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
 DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'), conn_max_age=600)
@@ -144,6 +128,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
