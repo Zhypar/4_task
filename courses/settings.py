@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'courses.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 import dj_database_url
-# DATABASES = {'default': dj_database_url.config()}
+DATABASES = {'default': dj_database_url.config()}
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',}}
