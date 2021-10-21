@@ -54,8 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'courses.urls'
@@ -91,23 +89,21 @@ WSGI_APPLICATION = 'courses.wsgi.application'
 # DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
 # DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'), conn_max_age=600)
 
-# DATABASES = {
-#    'default': {
-#       'ENGINE': 'django.db.backends.postgresql',
-#       'NAME': config('DB_NAME'),
-#       'USER': config('DB_USER'),
-#       'PASSWORD': config('DB_PASSWORD'),
-#       'HOST': 'localhost',
-#       'PORT': '5432',
-#    }
-# }
-# db.from_env = dj_database_url.config()
+DATABASES = {
+   'default': {
+      'ENGINE': 'django.db.backends.postgresql',
+      'NAME': config('DB_NAME'),
+      'USER': config('DB_USER'),
+      'PASSWORD': config('DB_PASSWORD'),
+      'HOST': 'localhost',
+      'PORT': '5432',
+   }
+}
+#db.from_env = dj_database_url.config()
 # DATABASES['default'].update(db.from_env)
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
-# DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'), conn_max_age=600)
-
-DATABASES = {'default': dj_database_url.config()}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
+DATABASES['default'] = dj_database_url.parse(config('DATABASE_URL'), conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
