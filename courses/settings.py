@@ -92,11 +92,11 @@ WSGI_APPLICATION = 'courses.wsgi.application'
 DATABASES = {
    'default': {
       'ENGINE': 'django.db.backends.postgresql',
-      'NAME': config('DB_NAME'),
-      'USER': config('DB_USER'),
-      'PASSWORD': config('DB_PASSWORD'),
-      'HOST': 'localhost',
-      'PORT': '5432',
+    #   'NAME': config('DB_NAME'),
+    #   'USER': config('DB_USER'),
+    #   'PASSWORD': config('DB_PASSWORD'),
+    #   'HOST': 'localhost',
+    #   'PORT': '5432',
    }
 }
 #db.from_env = dj_database_url.config()
