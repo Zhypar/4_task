@@ -28,4 +28,4 @@ python manage.py migrate
 python manage.py runserver
 ```
 ## Documentation
-after running server go to http://127.0.0.1:8000/swagger/
+[Apiary Blueprint](https://coursesapp5.docs.apiary.io/)
