@@ -99,8 +99,10 @@ DATABASES = {
       'PASSWORD': config('DB_PASSWORD'),
       'HOST': 'localhost',
       'PORT': '5432',
-   }
-}
+      'TEST': {
+            'NAME': 'testing',}
+}}
+
 db.from_env = dj_database_url.config()
 DATABASES['default'].update(db.from_env)
 
